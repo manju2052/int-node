@@ -23,6 +23,10 @@ node{
         
         sh "docker push comtechsayan/int-node-docker-dev"
     }
+
+    stage("Remove Local Image"){
+        sh "docker rmi -f comtechsayan/int-node-docker-dev"
+    }
     
     stage("Run in Docker Swarm Manager"){
         
