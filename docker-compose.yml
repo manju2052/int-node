@@ -1,13 +1,13 @@
 version: "3.1"
 
 services:
-  nodeappdev:
-    image: "comtechsayan/int-node-docker-dev"
+  nodeappstag:
+    image: "comtechsayan/int-node-docker-stag"
     build: .
     command: "node index.js"
     restart: always # This will be ignored if we deploy in docker swarm
     ports:
-      - 4000:4000
+      - 5000:5000
 
     networks:
       - customoverlay
