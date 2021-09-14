@@ -1,0 +1,26 @@
+version: "3.1"
+
+services:
+  nodeappdev:
+    image: "comtechsayan/int-node-docker-dev"
+    build: .
+    command: "node index.js"
+    restart: always # This will be ignored if we deploy in docker swarm
+    ports:
+      - 4000:4000
+
+    networks:
+      - customoverlay
+    deploy: # This will be considered only in docker swarm.
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 20s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 5
+
+networks:
+  customoverlay:
+    external: true
