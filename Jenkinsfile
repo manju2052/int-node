@@ -1,6 +1,6 @@
 node{
     
-    
+    properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '2']]])
     
     stage("Git Clone"){
      
@@ -34,6 +34,7 @@ node{
             
             sh 'scp -o StrictHostKeyChecking=no  docker-compose.yml ubuntu@172.31.35.129:'
             sh 'ssh -o StrictHostKeyChecking=no ubuntu@172.31.35.129 docker stack deploy --prune --compose-file docker-compose.yml nodeappdev'
+            sh 'ssh -o StrictHostKeyChecking=no  ubuntu@172.31.35.129 docker rmi -f  $(docker images -a -q) || true'
         }
         
     }
